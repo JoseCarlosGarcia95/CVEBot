@@ -74,12 +74,13 @@ for vulndb_result in vulndb_results:
     telegram_message = "<strong>New vulnerability found</strong>\n\n<strong>Title: </strong>{}\n<strong>Risk: </strong> {}".format(
         vulndb_result['Title'], vulndb_result['Risk'])
 
-    telegram_request(configuration, 'sendMessage', {
-                     'chat_id': configuration['ChatIDS'][0],
-                     'text': telegram_message,
-                     'parse_mode': 'html',
-                     'reply_markup': json.dumps({'inline_keyboard': inline_keyboard})
-                     })
+    for chat_id in configuration['ChatIDS']:
+        telegram_request(configuration, 'sendMessage', {
+            'chat_id': chat_id,
+            'text': telegram_message,
+            'parse_mode': 'html',
+            'reply_markup': json.dumps({'inline_keyboard': inline_keyboard})
+        })
 
     cvelist.append(vulndb_result['CVEId'])
 
