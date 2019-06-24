@@ -3,13 +3,6 @@ import requests
 import urllib.parse
 import urllib.request
 
-with open('config.json') as json_data_file:
-    configuration = json.load(json_data_file)
-
-with open('cvelist.json') as json_data_file:
-    cvelist = json.load(json_data_file)
-
-
 def telegram_request(configuration, fname, arguments={}):
     params = urllib.parse.urlencode(arguments)
     bot_url = 'https://api.telegram.org/bot{}/{}?{}'.format(
@@ -21,7 +14,6 @@ def telegram_request(configuration, fname, arguments={}):
 def vulndb_request(configuration, arguments={}):
     arguments['apikey'] = configuration['VulnAPIKey']
     return requests.post('https://vuldb.com/?api', data=arguments).json()['result']
-
 
 def vulndb_extract_result(results):
     formatted = []
@@ -36,6 +28,11 @@ def vulndb_extract_result(results):
 
     return formatted
 
+with open('config.json') as json_data_file:
+    configuration = json.load(json_data_file)
+
+with open('cvelist.json') as json_data_file:
+    cvelist = json.load(json_data_file)
 
 # 1. Download results from vulndb api.
 raw_vulndb = vulndb_request(configuration, {'recent': 10})
