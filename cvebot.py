@@ -80,7 +80,8 @@ for vulndb_result in vulndb_results:
     inline_keyboard = []
 
     telegram_message = "<strong>{} ({})</strong>\n\n".format(vulndb_result['Title'], vulndb_result['CVEId'])
-    telegram_message += "<strong>Summary: </strong> {}".format(full_info[0]['entry']['summary'])
+    telegram_message += "<strong>Summary: </strong> {}\n\n".format(full_info[0]['entry']['summary'])
+    telegram_message += "<strong>Level: </strong> {}".format(full_info[0]['vulnerability']['cvss3']['vuldb']['basescore'])
 
     if 'advisory' in full_info[0] and 'url' in full_info[0]['advisory']:
         inline_keyboard.append({
