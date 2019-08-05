@@ -64,8 +64,8 @@ for vulndb_result in vulndb_results:
             skip = True
             break
 
-    cvelist.append(vulndb_result['Title'])
-
+    cvelist.append(vulndb_result['CVEId'])
+    latest_titles.append(vulndb_result['Title'])
     if skip:
         continue
 
