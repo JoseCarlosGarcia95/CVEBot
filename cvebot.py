@@ -23,7 +23,11 @@ def vulndb_extract_result(results):
     for result in results:
         formatted_result = {}
         formatted_result['Id']    = result['entry']['id']
-        formatted_result['CVEId'] = result['source']['cve']['id']
+        if 'source' in result:
+            formatted_result['CVEId'] = result['source']['cve']['id']
+        else:
+            formatted_result['CVEId']    = "NON-CVE-" + result['entry']['id']
+
         formatted_result['Risk']  = result['vulnerability']['risk']['name']
         formatted_result['Title'] = result['entry']['title']
 
